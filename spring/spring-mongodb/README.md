@@ -1,5 +1,6 @@
 # spring 整合 mongodb（xml配置方式）
-## 目录<br/>
+
+## 目录<br/>
 <a href="#一说明">一、说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#11-项目结构说明">1.1 项目结构说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#12-依赖说明">1.2 依赖说明</a><br/>
@@ -16,7 +17,7 @@
 
 配置文件位于resources下,项目以单元测试的方式进行测试。
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-mongodb.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/spring-mongodb.png"/> </div>
 
 
 
@@ -103,7 +104,7 @@ mongo.socketTimeout=1500
 
 ```java
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : MongoDB 查询
  */
 @RunWith(SpringRunner.class)

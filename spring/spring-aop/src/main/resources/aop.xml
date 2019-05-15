@@ -11,13 +11,13 @@
     <aop:aspectj-autoproxy/>
 
     <!-- 1.配置目标对象 -->
-    <bean name="orderService" class="com.heibaiying.service.OrderServiceImpl"/>
+    <bean name="orderService" class="com.qs.service.OrderServiceImpl"/>
     <!-- 2.声明切面 -->
-    <bean name="myAdvice" class="com.heibaiying.advice.CustomAdvice"/>
+    <bean name="myAdvice" class="com.qs.advice.CustomAdvice"/>
     <!-- 3.配置将通知织入目标对象 -->
     <aop:config>
         <!--命名切入点 关于切入点更多表达式写法可以参见README.md-->
-        <aop:pointcut expression="execution(* com.heibaiying.service.OrderService.*(..))" id="cutPoint"/>
+        <aop:pointcut expression="execution(* com.qs.service.OrderService.*(..))" id="cutPoint"/>
         <aop:aspect ref="myAdvice">
             <!-- 前置通知 -->
             <aop:before method="before" pointcut-ref="cutPoint"/>

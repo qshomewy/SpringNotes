@@ -1,5 +1,6 @@
 # spring 定时任务（注解方式）
-## 目录<br/>
+
+## 目录<br/>
 <a href="#一说明">一、说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#11-项目结构说明">1.1 项目结构说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#12-依赖说明">1.2 依赖说明</a><br/>
@@ -15,7 +16,7 @@
 
 关于任务的调度配置定义在ServletConfig.java中，为方便观察项目定时执行的情况，项目以web的方式构建。
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-scheduling-annotation.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/spring-scheduling-annotation.png"/> </div>
 
 
 
@@ -30,7 +31,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.heibaiying</groupId>
+    <groupId>com.qs</groupId>
     <artifactId>spring-scheduling</artifactId>
     <version>1.0-SNAPSHOT</version>
     <build>
@@ -94,7 +95,7 @@
 
 ```java
 /**
- * @author : heibaiying
+ * @author : qshomewy
  */
 @Component
 public class Task {
@@ -135,14 +136,14 @@ public class Task {
 
 ```java
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * spring 主配置类
  */
 @Configuration
 @EnableWebMvc
 @EnableScheduling  //启用Spring的计划任务执行功能
 @EnableAsync       //启用Spring的异步方法执行功能
-@ComponentScan(basePackages = {"com.heibaiying.task"})
+@ComponentScan(basePackages = {"com.qs.task"})
 public class ServletConfig implements WebMvcConfigurer, AsyncConfigurer, SchedulingConfigurer {
 
     private ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();

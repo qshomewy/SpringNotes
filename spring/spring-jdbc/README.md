@@ -16,7 +16,7 @@
 
 #### 1.1  项目结构
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-jdbc.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/spring-jdbc.png"/> </div>
 
 #### 1.2  项目依赖
 
@@ -71,7 +71,7 @@ oracle.password=密码
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!-- 开启注解包扫描-->
-    <context:component-scan base-package="com.heibaiying.*"/>
+    <context:component-scan base-package="com.qs.*"/>
 
     <!--指定配置文件的位置-->
     <context:property-placeholder location="classpath:jdbc.properties"/>
@@ -109,7 +109,7 @@ oracle.password=密码
 ```
 
 #### 3、新建查询接口及其实现类,这里我查询的表是mysql和oracle中的字典表
-
+[JDBC 的使用可以参考官方文档](https://docs.spring.io/spring/docs/5.1.3.RELEASE/spring-framework-reference/data-access.html#jdbc-JdbcTemplate)
 ```java
 @Repository
 public class MysqlDaoImpl implements MysqlDao {

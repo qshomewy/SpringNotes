@@ -1,5 +1,6 @@
 # spring 整合 mybatis（xml配置方式）
-## 目录<br/>
+
+## 目录<br/>
 <a href="#一说明">一、说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#11-项目结构">1.1 项目结构</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#12-项目依赖">1.2 项目依赖</a><br/>
@@ -16,7 +17,7 @@
 
 #### 1.1 项目结构
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-mybatis.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/spring-mybatis.png"/> </div>
 
 #### 1.2 项目依赖
 
@@ -81,7 +82,7 @@ oracle.password=密码
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!-- 开启注解包扫描-->
-    <context:component-scan base-package="com.heibaiying.*"/>
+    <context:component-scan base-package="com.qs.*"/>
 
     <!--指定配置文件的位置-->
     <context:property-placeholder location="classpath:jdbc.properties"/>
@@ -114,7 +115,7 @@ oracle.password=密码
         <!--指定会话工厂 -->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <!-- 指定mybatis接口所在的包 -->
-        <property name="basePackage" value="com.heibaiying.dao"/>
+        <property name="basePackage" value="com.qs.dao"/>
     </bean>
 
 
@@ -167,9 +168,9 @@ public interface MysqlDao {
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.heibaiying.dao.MysqlDao">
+<mapper namespace="com.qs.dao.MysqlDao">
 
-    <select id="queryById" resultType="com.heibaiying.bean.Relation">
+    <select id="queryById" resultType="com.qs.bean.Relation">
         SELECT help_keyword_id AS id,name
         FROM HELP_KEYWORD
         WHERE HELP_KEYWORD_ID = #{id}
@@ -183,7 +184,6 @@ public interface OracleDao {
 
     List<Flow> queryById(long id);
 }
-
 ```
 
 ```xml
@@ -191,9 +191,9 @@ public interface OracleDao {
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.heibaiying.dao.OracleDao">
+<mapper namespace="com.qs.dao.OracleDao">
 
-    <select id="queryById" resultType="com.heibaiying.bean.Flow">
+    <select id="queryById" resultType="com.qs.bean.Flow">
         select * from APEX_030200.WWV_FLOW_CALS where ID = #{id}
     </select>
 
@@ -243,6 +243,5 @@ public class OracleDaoTest {
         }
     }
 }
-
 ```
 

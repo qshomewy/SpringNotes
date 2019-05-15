@@ -4,7 +4,6 @@
 
 <mapper namespace="com.heibaiying.dao.MysqlDao">
 
-
     <select id="queryById" resultType="com.heibaiying.bean.Relation">
         SELECT help_keyword_id AS id,name
         FROM HELP_KEYWORD

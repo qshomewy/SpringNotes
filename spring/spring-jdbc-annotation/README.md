@@ -18,7 +18,7 @@
 1. 数据源配置位于config目录下的DatabaseConfig.java和DataSourceConfig.java
 2. 项目以单元测试的方法进行测试
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-jdbc-annotation.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/spring-jdbc-annotation.png"/> </div>
 
 
 
@@ -88,7 +88,7 @@ public class DataSourceConfig {
 ```java
 @Configuration
 @EnableTransactionManagement // 开启声明式事务处理 等价于xml中<tx:annotation-driven/>
-@ComponentScan(basePackages = {"com.heibaiying.*"})
+@ComponentScan(basePackages = {"com.qs.*"})
 public class DatabaseConfig {
 
     /**

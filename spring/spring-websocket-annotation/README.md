@@ -1,5 +1,6 @@
 # spring websocket（注解方式）
-## 目录<br/>
+
+## 目录<br/>
 <a href="#一说明">一、说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#11-项目结构说明">1.1 项目结构说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#12-依赖说明">1.2 依赖说明</a><br/>
@@ -23,7 +24,7 @@
 5. webSocketConfig 是websocket 的主要配置类；
 6. 项目以web的方式构建。
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-websocket-annotation.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/spring-websocket-annotation.png"/> </div>
 
 
 
@@ -48,7 +49,7 @@
 
 ```java
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : 自定义消息处理类
  */
 public class CustomHandler extends TextWebSocketHandler {
@@ -101,7 +102,7 @@ public class CustomHandler extends TextWebSocketHandler {
 
 ```java
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : 可以按照需求实现权限拦截等功能
  */
 public class CustomHandshakeInterceptor extends HttpSessionHandshakeInterceptor {
@@ -126,7 +127,7 @@ public class CustomHandshakeInterceptor extends HttpSessionHandshakeInterceptor 
 
 ```java
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description :websocket 配置
  */
 @Configuration

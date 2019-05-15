@@ -8,7 +8,7 @@
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd">
 
     <!-- 开启注解包扫描-->
-    <context:component-scan base-package="com.heibaiying.*"/>
+    <context:component-scan base-package="com.qs.*"/>
 
     <!--使用默认的Servlet来响应静态文件 详见README.md -->
     <mvc:default-servlet-handler/>
@@ -30,22 +30,22 @@
         <mvc:interceptor>
             <mvc:mapping path="/mvc/**"/>
             <mvc:exclude-mapping path="/mvc/login"/>
-            <bean class="com.heibaiying.interceptors.MyFirstInterceptor"/>
+            <bean class="com.qs.interceptors.MyFirstInterceptor"/>
         </mvc:interceptor>
         <mvc:interceptor>
             <mvc:mapping path="/mvc/**"/>
-            <bean class="com.heibaiying.interceptors.MySecondInterceptor"/>
+            <bean class="com.qs.interceptors.MySecondInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 
     <!--配置全局异常处理器-->
-    <bean class="com.heibaiying.exception.NoAuthExceptionResolver"/>
+    <bean class="com.qs.exception.NoAuthExceptionResolver"/>
 
     <!-- 全局日期格式转换  -->
     <bean id="formattingConversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
     <property name="converters">
         <list>
-            <bean class="com.heibaiying.convert.CustomDateConverter"/>
+            <bean class="com.qs.convert.CustomDateConverter"/>
         </list>
     </property>
     </bean>

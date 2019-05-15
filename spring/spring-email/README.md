@@ -1,5 +1,6 @@
 # spring 邮件发送（xml配置方式）
-## 目录<br/>
+
+## 目录<br/>
 <a href="#一说明">一、说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#11-项目结构说明">1.1 项目结构说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#12-依赖说明">1.2 依赖说明</a><br/>
@@ -20,7 +21,7 @@
 
 
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-email.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/spring-email.png"/> </div>
 
 
 
@@ -28,6 +29,7 @@
 
 除了spring的基本依赖外，需要导入邮件发送的支持包spring-context-support
 
+[ibeetl](http://ibeetl.com/guide/#beetl)
 ```xml
  <!--邮件发送依赖包-->
 <dependency>
@@ -61,7 +63,7 @@
         http://www.springframework.org/schema/context/spring-context-4.1.xsd">
 
     <!-- 开启注解包扫描-->
-    <context:component-scan base-package="com.heibaiying.email"/>
+    <context:component-scan base-package="com.qs.email"/>
 
     <!--在这里可以声明不同的邮件服务器主机，通常是SMTP主机,而具体的用户名和时授权码则建议在业务中从数据库查询-->
     <bean id="qqMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
@@ -89,7 +91,7 @@
 
 ```java
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : 邮件发送基本类
  */
 @Component
@@ -248,7 +250,7 @@ public class SpringMail {
 
 ```java
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : 发送邮件测试类
  */
 @RunWith(SpringRunner.class)

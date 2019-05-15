@@ -1,5 +1,6 @@
-# spring 邮件发送（xml配置方式）
-## 目录<br/>
+# spring 邮件发送（注解配置方式）
+
+## 目录<br/>
 <a href="#一说明">一、说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#11-项目结构说明">1.1 项目结构说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#12-依赖说明">1.2 依赖说明</a><br/>
@@ -14,13 +15,13 @@
 
 ### 1.1 项目结构说明
 
-1. 邮件发送配置类为com.heibaiying.config下EmailConfig.java;
+1. 邮件发送配置类为com.qs.config下EmailConfig.java;
 2. 简单邮件发送、附件邮件发送、内嵌资源邮件发送、模板邮件发送的方法封装在SpringMail类中；
 3. 项目以单元测试的方法进行测试，测试类为SendEmail。
 
 
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-email-annotation.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/spring-email-annotation.png"/> </div>
 
 
 
@@ -52,12 +53,12 @@
 
 ```java
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : 邮件发送配置类
  */
 
 @Configuration
-@ComponentScan(value = "com.heibaiying.email")
+@ComponentScan(value = "com.qs.email")
 public class EmailConfig {
 
     /***
@@ -90,7 +91,7 @@ public class EmailConfig {
 
 ```java
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : 邮件发送基本类
  */
 @Component
@@ -249,7 +250,7 @@ public class SpringMail {
 
 ```java
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : 发送邮件测试类
  */
 @RunWith(SpringRunner.class)

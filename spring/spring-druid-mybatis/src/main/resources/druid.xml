@@ -53,5 +53,4 @@
         <property name="filters" value="stat"/>
     </bean>
 
-
 </beans>

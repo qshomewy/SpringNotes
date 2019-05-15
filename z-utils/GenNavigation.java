@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : 用于生成README.md导航目录的工具类
  */
 public class GenNavigation {

@@ -1,5 +1,6 @@
 # spring 整合 redis （xml配置方式）
-## 目录<br/>
+
+## 目录<br/>
 <a href="#一说明">一、说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#11--Redis-客户端说明">1.1  Redis 客户端说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#12-Redis可视化软件">1.2 Redis可视化软件 </a><br/>
@@ -44,14 +45,14 @@
 
 ### 1.1  Redis 客户端说明
 
-关于spring 整合 mybatis 本用例提供两种整合方法：
+关于spring 整合 redis 本用例提供两种整合方法：
 
 1. jedis: 官方推荐的java客户端，能够胜任redis的大多数基本使用；
 2. redisson：也是官方推荐的客户端，比起jedis提供了更多高级的功能，比如分布式锁、集合数据切片等功能。同时提供了丰富而全面的中英文版本的wiki。
 
 注：关于redis其他语言官方推荐的客户端可以在[客户端](http://www.redis.cn/clients.html)该网页查看，其中官方推荐的用了黄色星星:star:标注。
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/redis官方推荐客户端.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/redis官方推荐客户端.png"/> </div>
 
 
 
@@ -64,7 +65,7 @@
 1. jedis和redisson的配置和单元测试分别位于resources和test下对应的包中，其中集群的配置文件以cluster结尾。所有配置按照需要在springApplication.xml用import导入。
 2. 实体类Programmer.java用于测试Redisson序列化与反序列化
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-redis.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/spring-redis.png"/> </div>
 
 **springapplication.xml文件：**
 
@@ -388,7 +389,7 @@ public class RedissonObjectSamples {
     public void Set() {
         RBucket<Programmer> rBucket = redissonClient.getBucket("programmer");
         rBucket.set(new Programmer("xiaoming", 12, 5000.21f, new Date()));
-        //存储结果: {"@class":"com.heibaiying.bean.Programmer","age":12,"birthday":["java.util.Date",1545714986590],"name":"xiaoming","salary":5000.21}
+        //存储结果: {"@class":"com.qs.bean.Programmer","age":12,"birthday":["java.util.Date",1545714986590],"name":"xiaoming","salary":5000.21}
     }
 
     @Test
@@ -441,8 +442,8 @@ type命令实际返回的就是当前键的数据结构类型， 它们分别是
 
 ### 1.2 字符串
 
-| 作用                   | 格式                                                         | 参数或示例                                                   |
-| ---------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 作用 | 格式 | 参数或示例 |
+| --- | --- | --- |
 | 设置值                 | set key value \[ex seconds]\[px milliseconds][nx\|xx] setnx setex | ex seconds： 为键设置秒级过期时间。 <br/>px milliseconds： 为键设置毫秒级过期时间。<br/>nx： 键必须不存在， 才可以设置成功， 用于添加。<br/>xx： 与nx相反， 键必须存在， 才可以设置成功， 用于更新。 |
 | 获取值                 | get key                                                      | r如果获取的键不存在 ，则返回nil(空)                          |
 | 批量设置               | mset key value [key value ...]                               | mset a 1 b 2 c 3 d 4                                         |
@@ -456,8 +457,8 @@ type命令实际返回的就是当前键的数据结构类型， 它们分别是
 
 ### 1.3 哈希
 
-| 作用                      | 格式                                                         | 参数或示例                                                   |
-| ------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 作用 | 格式 | 参数或示例 |
+| --- | --- | --- |
 | 设置值                    | hset key field value                                         | hset user:1 name tom<br/>hset user:1 age 12                  |
 | 获取值                    | hget key field                                               | hget user:1 name                                             |
 | 删除field                 | hdel key field [field ...]                                   |                                                              |
@@ -471,8 +472,8 @@ type命令实际返回的就是当前键的数据结构类型， 它们分别是
 
 ### 1.4 列表
 
-| 作用     | 格式                                                         | 参数或示例                                                   |
-| -------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 作用 | 格式 | 参数或示例 |
+| --- | --- | --- |
 | 增       | 左侧插入：lpush key value [value ...] 右侧插入：rpush key value [value ...] 某个指定元素前后插入：linsert key before\|after pivot value |                                                              |
 | 查       | 获取指定范围内的元素列表：lrange key start end 获取列表指定索引下标的元素：lindex key index 获取列表指定长度：llen key | lrange listkey 0 -1                                          |
 | 删       | 从列表左侧弹出元素：lpop key 从列表右侧弹出元素：rpop key 删除指定元素：lrem key count value 截取列表：ltrim key start end | count>0， 从左到右， 删除最多count个元素。<br/>count<0， 从右到左， 删除最多count绝对值个元素。<br/>count=0， 删除所有 |
@@ -487,8 +488,8 @@ type命令实际返回的就是当前键的数据结构类型， 它们分别是
 
 **集合内操作**：
 
-| 作用                 | 格式                           | 参数或示例                                |
-| -------------------- | ------------------------------ | ----------------------------------------- |
+| 作用 | 格式 | 参数或示例 |
+| --- | --- | --- |
 | 添加元素             | sadd key element [element ...] | 返回结果为添加成功的元素个数              |
 | 删除元素             | srem key element [element ...] | 返回结果为成功删除的元素个数              |
 | 计算元素个数         | scard key                      |                                           |
@@ -499,8 +500,8 @@ type命令实际返回的就是当前键的数据结构类型， 它们分别是
 
 **集合间操作**：
 
-| 作用                         | 格式                                                         |
-| ---------------------------- | ------------------------------------------------------------ |
+| 作用 | 格式 |
+| --- | --- |
 | 求多个集合的交集             | sinter key [key ...]                                         |
 | 求多个集合的并集             | suinon key [key ...]                                         |
 | 求多个集合的差集             | sdiff key [key ...]                                          |
@@ -512,8 +513,8 @@ type命令实际返回的就是当前键的数据结构类型， 它们分别是
 
 **集合内操作**：
 
-| 作用                     | 格式                                                         | 参数或示例                                                   |
-| ------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 作用 | 格式 | 参数或示例 |
+| --- | --- | --- |
 | 添加成员                 | zadd key score member [score member ...]                     | nx： member必须不存在， 才可设置成功， 用于添加。<br> xx： member必须存在， 才可以设置成功， 用于更新。<br/>ch： 返回此次操作后， 有序集合元素和分数发生变化的个数<br/>incr： 对score做增加， 相当于后面介绍的zincrby。 |
 | 计算成员个数             | zcard key                                                    |                                                              |
 | 计算某个成员的分数       | zscore key member                                            |                                                              |
@@ -527,8 +528,8 @@ type命令实际返回的就是当前键的数据结构类型， 它们分别是
 
 **集合间操作**：
 
-| 作用 | 格式                                                         |
-| ---- | ------------------------------------------------------------ |
+| 作用 | 格式 |
+| --- | --- |
 | 交集 | zinterstore destination numkeys key \[key ...]  [weights weight [weight ...]] \[aggregate sum\|min\|max] |
 | 并集 | zunionstore destination numkeys key \[key ...] [weights weight [weight ...]] \[aggregate sum\|min\|max] |
 

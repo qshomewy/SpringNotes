@@ -1,5 +1,6 @@
 # spring 整合 rabbitmq（xml配置方式）
-## 目录<br/>
+
+## 目录<br/>
 <a href="#一说明">一、说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#11-项目结构说明">1.1 项目结构说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#12-依赖说明">1.2 依赖说明</a><br/>
@@ -24,11 +25,11 @@
 
 3. rabbitObjectAnnotation.java中声明了direct类型的交换机，持久化队列，及其绑定关系，用于示例对象消息的传输。
 
-   注：关于rabbitmq安装、交换机、队列、死信队列等基本概念可以参考我的手记[《RabbitMQ实战指南》读书笔记](https://github.com/heibaiying/LearningNotes/blob/master/notes/%E4%B8%AD%E9%97%B4%E4%BB%B6/RabbitMQ/%E3%80%8ARabbitMQ%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0.md),里面有详细的配图说明。
+   注：关于rabbitmq安装、交换机、队列、死信队列等基本概念可以参考我的手记[《RabbitMQ实战指南》读书笔记](https://github.com/qshomewy/LearningNotes/blob/master/notes/%E4%B8%AD%E9%97%B4%E4%BB%B6/RabbitMQ/%E3%80%8ARabbitMQ%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0.md),里面有详细的配图说明。
 
 
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-rabbitmq.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/spring-rabbitmq.png"/> </div>
 
 
 
@@ -104,7 +105,7 @@ rabbitmq.virtualhost=/
     </rabbit:direct-exchange>
 
     <!--扫描rabbit包 自动声明交换器、队列、绑定关系-->
-    <context:component-scan base-package="com.heibaiying.rabbit"/>
+    <context:component-scan base-package="com.qs.rabbit"/>
 
 </beans>
 ```
@@ -125,7 +126,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : 声明队列、交换机、绑定关系、和队列消息监听
  */
 
@@ -225,7 +226,7 @@ public class RabbitBaseAnnotation {
 
 ```java
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : 传输简单字符串
  */
 
@@ -277,7 +278,7 @@ public class RabbitTest {
 
 ```java
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description :消息委派处理类
  */
 public class MessageDelegate {
@@ -297,7 +298,7 @@ public class MessageDelegate {
 
 ```java
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : 声明队列、交换机、绑定关系、用于测试对象的消息传递
  */
 
@@ -340,8 +341,8 @@ public class RabbitObjectAnnotation {
 
         Map<String, Class<?>> idClassMapping = new HashMap<>();
         // 针对不同的消息体调用不同的重载方法
-        idClassMapping.put(Type.MANAGER, com.heibaiying.bean.ProductManager.class);
-        idClassMapping.put(Type.PROGRAMMER, com.heibaiying.bean.Programmer.class);
+        idClassMapping.put(Type.MANAGER, com.qs.bean.ProductManager.class);
+        idClassMapping.put(Type.PROGRAMMER, com.qs.bean.Programmer.class);
 
         javaTypeMapper.setIdClassMapping(idClassMapping);
 

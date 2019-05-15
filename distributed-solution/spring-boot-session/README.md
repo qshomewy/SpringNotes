@@ -12,7 +12,7 @@
 
 ## 一、项目结构
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-boot-session.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/spring-samples-for-all/blob/master/pictures/spring-boot-session.png"/> </div>
 
 
 
@@ -149,14 +149,14 @@ session 信息展示页面home.ftl：
 
 应用1启动配置：
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-boot-session-app1.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/spring-samples-for-all/blob/master/pictures/spring-boot-session-app1.png"/> </div>
 
 应用2启动配置，需要用 `--server.port `指定不同的端口号：
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-boot-session-app2.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/spring-samples-for-all/blob/master/pictures/spring-boot-session-app2.png"/> </div>
 
 **测试结果：**
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-boot-session-8080.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/spring-samples-for-all/blob/master/pictures/spring-boot-session-8080.png"/> </div>
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-boot-session-8090.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/spring-samples-for-all/blob/master/pictures/spring-boot-session-8090.png"/> </div>

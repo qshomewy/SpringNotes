@@ -1,5 +1,6 @@
 # spring 整合 mecached（注解方式）
-## 目录<br/>
+
+## 目录<br/>
 <a href="#一说明">一、说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#11--XMemcached客户端说明">1.1  XMemcached客户端说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#12-项目结构说明">1.2 项目结构说明</a><br/>
@@ -21,9 +22,9 @@ XMemcached是基于java nio的memcached高性能客户端，支持完整的memca
 
 ### 1.2 项目结构说明
 
-1. memcached的整合配置位于com.heibaiying.config文件夹下。
+1. memcached的整合配置位于com.qs.config文件夹下。
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-memcached-annotation.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/spring-memcached-annotation.png"/> </div>
 
 ### 1.3 依赖说明
 
@@ -94,7 +95,7 @@ xmemcached单机版本和集群版本注入的实例是相同的；
 
 ```java
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : Memcached 操作基本对象
  */
 @RunWith(SpringRunner.class)
@@ -120,7 +121,7 @@ public class MemSamples {
 
 ```java
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description :Memcached 序列化与反序列化
  */
 @RunWith(SpringRunner.class)
@@ -147,8 +148,8 @@ public class MemObjectSamples {
 
 ## 附：memcached 基本命令
 
-| 命令            | 格式                                               | 说明                                  |
-| --------------- | -------------------------------------------------- | ------------------------------------- |
+| 命令 | 格式 | 说明 |
+| --- | --- | --- |
 | 新增 set        | set  key  flags   exTime  length -> value          | 无论什么情况，都可以插入              |
 | 新增 add        | add key  flags   exTime  length -> value           | 只有当key不存在的情况下，才可以插入   |
 | 替换 replace    | replace  key  flags   exTime  length -> value      | 只修改已存在key的value值              |

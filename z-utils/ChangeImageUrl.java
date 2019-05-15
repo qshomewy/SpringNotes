@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : 转换本地图片为Github图片工具类
  */
 public class ChangeImageUrl {
@@ -17,7 +17,7 @@ public class ChangeImageUrl {
 
         String dir = args[0];
 
-        String preUrl = "https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/";
+        String preUrl = "https://github.com/qshomewy/spring-samples-for-all/blob/master/pictures/";
         String regex = "(!\\[(\\S*)]\\(D:\\\\spring-samples-for-all\\\\pictures\\\\(\\S*)\\)[^(</br>)]*?)";
 
         List<String> filesList = getAllFile(dir, new ArrayList<>());

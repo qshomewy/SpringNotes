@@ -38,6 +38,6 @@
     </rabbit:direct-exchange>
 
     <!--扫描rabbit包 自动声明交换器、队列、绑定关系-->
-    <context:component-scan base-package="com.heibaiying.rabbit"/>
+    <context:component-scan base-package="com.qs.rabbit"/>
 
 </beans>

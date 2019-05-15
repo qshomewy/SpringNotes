@@ -14,7 +14,7 @@
         http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
     <!-- 开启注解包扫描-->
-    <context:component-scan base-package="com.heibaiying.*"/>
+    <context:component-scan base-package="com.qs.*"/>
 
     <!--使用默认的Servlet来响应静态文件 -->
     <mvc:default-servlet-handler/>
@@ -32,13 +32,13 @@
     </bean>
 
     <!--配置webSocket-->
-    <bean id="customHandler" class="com.heibaiying.websocket.CustomHandler"/>
+    <bean id="customHandler" class="com.qs.websocket.CustomHandler"/>
     <websocket:handlers>
         <!--指定webSocket 地址-->
         <websocket:mapping path="/socket" handler="customHandler"/>
         <!--webSocket握手-->
         <websocket:handshake-interceptors>
-            <bean class="com.heibaiying.websocket.CustomHandshakeInterceptor"/>
+            <bean class="com.qs.websocket.CustomHandshakeInterceptor"/>
         </websocket:handshake-interceptors>
     </websocket:handlers>
 

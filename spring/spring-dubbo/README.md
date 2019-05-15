@@ -1,5 +1,6 @@
 # spring 整合 dubbo（xml配置方式）
-## 目录<br/>
+
+## 目录<br/>
 <a href="#一-项目结构说明">一、 项目结构说明</a><br/>
 <a href="#二项目依赖">二、项目依赖</a><br/>
 <a href="#三公共模块dubbo-common">三、公共模块（dubbo-common）</a><br/>
@@ -18,13 +19,13 @@
 
 1.1  按照dubbo 文档推荐的服务最佳实践，建议将服务接口、服务模型、服务异常等均放在 API 包中，所以项目采用maven多模块的构建方式，在spring-dubbo下构建三个子模块：
 
-1. dubbo-common 是公共模块，用于存放公共的接口和bean,被dubbo-provider和dubbo-provider在pom.xml中引用；
+1. dubbo-common 是公共模块，用于存放公共的接口和bean,被dubbo-provider和dubbo-consumer在pom.xml中引用；
 2. dubbo-provider 是服务的提供者，提供商品的查询服务；
-3. dubbo-provider 是服务的消费者，调用provider提供的查询服务。
+3. dubbo-consumer 是服务的消费者，调用provider提供的查询服务。
 
-1.2  本项目dubbo的搭建采用zookeeper作为注册中心， 关于zookeeper的安装和基本操作可以参见我的手记[Zookeeper 基础命令与Java客户端](https://github.com/heibaiying/LearningNotes/blob/master/notes/%E4%B8%AD%E9%97%B4%E4%BB%B6/ZooKeeper/ZooKeeper%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8EJava%E5%AE%A2%E6%88%B7%E7%AB%AF.md)
+1.2  本项目dubbo的搭建采用zookeeper作为注册中心， 关于zookeeper的安装和基本操作可以参见我的手记[Zookeeper 基础命令与Java客户端](https://github.com/qshomewy/LearningNotes/blob/master/notes/%E4%B8%AD%E9%97%B4%E4%BB%B6/ZooKeeper/ZooKeeper%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8EJava%E5%AE%A2%E6%88%B7%E7%AB%AF.md)
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-dubbo.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/spring-dubbo.png"/> </div>
 
 
 
@@ -65,11 +66,11 @@
 - api 下为公共的调用接口；
 - bean 下为公共的实体类。
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/dubbo-common.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/dubbo-common.png"/> </div>
 
 ## 四、 服务提供者（dubbo-provider）
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/dubbo-provider.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/dubbo-provider.png"/> </div>
 
 #### 4.1  productService是服务的提供者（ 商品数据用模拟数据展示）
 
@@ -77,7 +78,7 @@
 
 ```java
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : 产品提供接口实现类
  */
 @Service
@@ -129,16 +130,16 @@ public class ProductService implements IProductService {
     <dubbo:protocol name="dubbo" port="20880"/>
 
     <!-- 声明需要暴露的服务接口 -->
-    <dubbo:service interface="com.heibaiying.api.IProductService" ref="productService"/>
+    <dubbo:service interface="com.qs.api.IProductService" ref="productService"/>
 
     <!-- 和本地bean一样实现服务 -->
-    <bean id="productService" class="com.heibaiying.service.ProductService"/>
+    <bean id="productService" class="com.qs.service.ProductService"/>
 </beans>
 ```
 
 ## 五、服务消费者（dubbo-consumer）
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/dubbo-consumer.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/dubbo-consumer.png"/> </div>
 
 #### 1.在dubbo.xml调用远程的服务
 
@@ -165,7 +166,7 @@ public class ProductService implements IProductService {
     <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"/>
 
     <!-- 生成远程服务代理，可以和本地bean一样使用demoService -->
-    <dubbo:reference id="sellService" interface="com.heibaiying.api.IProductService"/>
+    <dubbo:reference id="sellService" interface="com.qs.api.IProductService"/>
 
 
 </beans>
@@ -214,7 +215,7 @@ consumer中 pom.xml如下
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>spring-dubbo</artifactId>
-        <groupId>com.heibaiying</groupId>
+        <groupId>com.qs</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -223,7 +224,7 @@ consumer中 pom.xml如下
 
     <dependencies>
         <dependency>
-            <groupId>com.heibaiying</groupId>
+            <groupId>com.qs</groupId>
             <artifactId>dubbo-common</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
@@ -242,7 +243,7 @@ provider中 pom.xml如下
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>spring-dubbo</artifactId>
-        <groupId>com.heibaiying</groupId>
+        <groupId>com.qs</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -251,7 +252,7 @@ provider中 pom.xml如下
 
     <dependencies>
         <dependency>
-            <groupId>com.heibaiying</groupId>
+            <groupId>com.qs</groupId>
             <artifactId>dubbo-common</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>

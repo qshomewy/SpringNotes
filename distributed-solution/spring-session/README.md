@@ -14,7 +14,7 @@
 
 分布式session 主要配置文件为spring-session.xml和web.xml，其他的配置为标准的web工程的配置。
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-session.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/spring-samples-for-all/blob/master/pictures/spring-session.png"/> </div>
 
 ## 二、分布式session的配置
 
@@ -186,14 +186,14 @@ session 信息展示页面(home.jsp)：
 
 tomcat 1 配置：
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-session-tomcat01.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/spring-samples-for-all/blob/master/pictures/spring-session-tomcat01.png"/> </div>
 
 tomcat 2 配置：
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-session-tomcat02.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/spring-samples-for-all/blob/master/pictures/spring-session-tomcat02.png"/> </div>
 
 **测试结果：**
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-session-8080.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/spring-samples-for-all/blob/master/pictures/spring-session-8080.png"/> </div>
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-session-8090.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/spring-samples-for-all/blob/master/pictures/spring-session-8090.png"/> </div>

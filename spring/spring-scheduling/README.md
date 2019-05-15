@@ -1,5 +1,6 @@
 # spring 定时任务（xml配置方式）
-## 目录<br/>
+
+## 目录<br/>
 <a href="#一说明">一、说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#11-项目结构说明">1.1 项目结构说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#12-依赖说明">1.2 依赖说明</a><br/>
@@ -15,7 +16,7 @@
 
 关于任务的调度配置定义在springApplication.xml中，为方便观察项目定时执行的情况，项目以web的方式构建。
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-scheduling.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/spring-scheduling.png"/> </div>
 
 
 
@@ -30,7 +31,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.heibaiying</groupId>
+    <groupId>com.qs</groupId>
     <artifactId>spring-scheduling</artifactId>
     <version>1.0-SNAPSHOT</version>
     <build>
@@ -93,7 +94,7 @@
 #### 2.1 创建定时任务
 
 ```java
-package com.heibaiying.task;
+package com.qs.task;
 
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -101,7 +102,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import java.time.LocalDateTime;
 
 /**
- * @author : heibaiying
+ * @author : qshomewy
  */
 public class Task {
 
@@ -146,13 +147,13 @@ public class Task {
         http://www.springframework.org/schema/task/spring-task.xsd">
 
     <!-- 开启注解包扫描-->
-    <context:component-scan base-package="com.heibaiying.*"/>
+    <context:component-scan base-package="com.qs.*"/>
 
     <!-- 开启注解驱动 -->
     <mvc:annotation-driven/>
 
     <!--配置定时任务-->
-    <bean id="task" class="com.heibaiying.task.Task"/>
+    <bean id="task" class="com.qs.task.Task"/>
     <task:scheduled-tasks scheduler="myScheduler">
         <!--基于间隔的触发器，其中间隔是从上一个任务的  完成时间  开始计算, 时间单位值以毫秒为单位。-->
         <task:scheduled ref="task" method="methodA" fixed-delay="5000" initial-delay="1000"/>

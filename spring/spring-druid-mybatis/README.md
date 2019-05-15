@@ -3,7 +3,7 @@
 ## 目录<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#1创建maven工程除了Spring基本依赖外还需要导入mybatis和druid的相关依赖">1、创建maven工程，除了Spring基本依赖外，还需要导入mybatis和druid的相关依赖</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#2在webxml-中配置spring前端控制器druid监控台servlet和filter">2、在web.xml 中配置spring前端控制器、druid监控台servlet和filter</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#3在resources文件夹下新建数据库配置文件jdbcproperties">3、在resources文件夹下新建数据库配置文件jdbc.properties</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#3在resources文件夹下新建数据库配置文件jdbcproperties">3、在resources文件夹下新建数据库配置文件jdbc.properties</a><br/
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4在resources文件夹下创建springApplicationxml-配置文件和druidxml配置文件">4、在resources文件夹下创建springApplication.xml 配置文件和druid.xml配置文件 </a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#5新建mybtais-配置文件按需要进行额外配置更多settings配置项可以参考[官方文档]http//wwwmybatisorg/mybatis-3/zh/configurationhtml">5、新建mybtais 配置文件，按需要进行额外配置，更多settings配置项可以参考[官方文档](http://www.mybatis.org/mybatis-3/zh/configuration.html)</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#6新建查询接口及其对应的mapper文件">6、新建查询接口及其对应的mapper文件</a><br/>
@@ -13,7 +13,7 @@
 
 ### 项目目录结构
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-druid-mybatis.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/spring-druid-mybatis.png"/> </div>
 
 #### 1、创建maven工程，除了Spring基本依赖外，还需要导入mybatis和druid的相关依赖
 
@@ -137,7 +137,7 @@ oracle.password=密码
 ```
 
 #### 4、在resources文件夹下创建springApplication.xml 配置文件和druid.xml配置文件 
-
+[【Spring框架】<mvc:default-servlet-handler/>的作用](https://www.cnblogs.com/dflmg/p/6393416.html)
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
@@ -148,7 +148,7 @@ oracle.password=密码
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!-- 开启注解包扫描-->
-    <context:component-scan base-package="com.heibaiying.*"/>
+    <context:component-scan base-package="com.qs.*"/>
 
     <!--使用默认的Servlet来响应静态文件 -->
     <mvc:default-servlet-handler/>
@@ -173,7 +173,7 @@ oracle.password=密码
         <!--指定会话工厂 -->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <!-- 指定mybatis接口所在的包 -->
-        <property name="basePackage" value="com.heibaiying.dao"/>
+        <property name="basePackage" value="com.qs.dao"/>
     </bean>
 
     <!--定义事务管理器-->
@@ -185,10 +185,9 @@ oracle.password=密码
     <!-- 开启事务注解@Transactional支持 -->
     <tx:annotation-driven/>
 
-
 </beans>
 ```
-
+[DruidDataSource配置属性列表](https://github.com/alibaba/druid/wiki/DruidDataSource%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E5%88%97%E8%A1%A8)
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
@@ -201,7 +200,7 @@ oracle.password=密码
     <!--指定配置文件的位置-->
     <context:property-placeholder location="classpath:jdbc.properties"/>
 
-    <!--配置druid数据源 关于更多的配置项 可以参考官方文档 <a href="https://github.com/alibaba/druid/wiki/DruidDataSource%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E5%88%97%E8%A1%A8" > -->
+    <!--配置druid数据源 关于更多的配置项 可以参考官方文档 <a src="https://github.com/alibaba/druid/wiki/DruidDataSource%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E5%88%97%E8%A1%A8" > -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <!-- 基本属性 url、user、password -->
         <property name="url" value="${mysql.url}"/>
@@ -245,7 +244,6 @@ oracle.password=密码
         <property name="filters" value="stat"/>
     </bean>
 
-
 </beans>
 ```
 
@@ -286,9 +284,9 @@ public interface MysqlDao {
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.heibaiying.dao.MysqlDao">
+<mapper namespace="com.qs.dao.MysqlDao">
 
-    <select id="queryById" resultType="com.heibaiying.bean.Relation">
+    <select id="queryById" resultType="com.qs.bean.Relation">
         SELECT help_keyword_id AS id,name
         FROM HELP_KEYWORD
         WHERE HELP_KEYWORD_ID = #{id}
@@ -297,12 +295,11 @@ public interface MysqlDao {
 </mapper>
 ```
 
-```mysql
+```java
 public interface OracleDao {
 
     List<Flow> queryById(long id);
 }
-
 ```
 
 ```xml
@@ -310,9 +307,9 @@ public interface OracleDao {
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.heibaiying.dao.OracleDao">
+<mapper namespace="com.qs.dao.OracleDao">
 
-    <select id="queryById" resultType="com.heibaiying.bean.Flow">
+    <select id="queryById" resultType="com.qs.bean.Flow">
         select * from APEX_030200.WWV_FLOW_CALS where ID = #{id}
     </select>
 
@@ -322,22 +319,6 @@ public interface OracleDao {
 #### 7、新建测试controller进行测试
 
 ```java
-package com.heibaiying.controller;
-
-import com.heibaiying.bean.Relation;
-import com.heibaiying.dao.MysqlDao;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-
-/**
- * @author : heibaiying
- * @description :
- */
-
 @RestController
 public class MysqlController {
 
@@ -349,23 +330,9 @@ public class MysqlController {
         return mysqlDao.queryById(id).get(0).toString();
     }
 }
-
 ```
 
 ```java
-package com.heibaiying.controller;
-
-import com.heibaiying.dao.OracleDao;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-
-/**
- * @author : heibaiying
- * @description :
- */
-
 @RestController
 public class OracleController {
 
@@ -377,9 +344,8 @@ public class OracleController {
         return oracleDao.queryById(id).get(0).toString();
     }
 }
-
 ```
 
 #### 8、druid 监控页面访问地址http://localhost:8080/druid/index.html
 
-![druid控制台](https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/druid%E6%8E%A7%E5%88%B6%E5%8F%B0.png)
+![druid控制台](https://github.com/qshomewy/SpringNotes/blob/master/pictures/druid%E6%8E%A7%E5%88%B6%E5%8F%B0.png)

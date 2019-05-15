@@ -1,5 +1,6 @@
 # spring websocket（xml配置方式）
-## 目录<br/>
+
+## 目录<br/>
 <a href="#一说明">一、说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#11-项目结构说明">1.1 项目结构说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#12-依赖说明">1.2 依赖说明</a><br/>
@@ -21,7 +22,7 @@
 3. CustomHandershakerInterceptor为自定义的 websocket 的握手拦截器；
 4. 项目以web的方式构建。
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-websocket.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/spring-websocket.png"/> </div>
 
 
 
@@ -46,7 +47,7 @@
 
 ```java
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : 自定义消息处理类
  */
 public class CustomHandler extends TextWebSocketHandler {
@@ -99,7 +100,7 @@ public class CustomHandler extends TextWebSocketHandler {
 
 ```java
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : 可以按照需求实现权限拦截等功能
  */
 public class CustomHandshakeInterceptor extends HttpSessionHandshakeInterceptor {
@@ -139,7 +140,7 @@ public class CustomHandshakeInterceptor extends HttpSessionHandshakeInterceptor 
         http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
     <!-- 开启注解包扫描-->
-    <context:component-scan base-package="com.heibaiying.*"/>
+    <context:component-scan base-package="com.qs.*"/>
 
     <!--使用默认的Servlet来响应静态文件 -->
     <mvc:default-servlet-handler/>
@@ -157,13 +158,13 @@ public class CustomHandshakeInterceptor extends HttpSessionHandshakeInterceptor 
     </bean>
 
     <!--配置webSocket-->
-    <bean id="customHandler" class="com.heibaiying.websocket.CustomHandler"/>
+    <bean id="customHandler" class="com.qs.websocket.CustomHandler"/>
     <websocket:handlers>
         <!--指定webSocket 地址-->
         <websocket:mapping path="/socket" handler="customHandler"/>
         <!--webSocket握手-->
         <websocket:handshake-interceptors>
-            <bean class="com.heibaiying.websocket.CustomHandshakeInterceptor"/>
+            <bean class="com.qs.websocket.CustomHandshakeInterceptor"/>
         </websocket:handshake-interceptors>
     </websocket:handlers>
 

@@ -1,5 +1,6 @@
 # spring 整合 dubbo（注解方式）
-## 目录<br/>
+
+## 目录<br/>
 <a href="#一-项目结构说明">一、 项目结构说明</a><br/>
 <a href="#二项目依赖">二、项目依赖</a><br/>
 <a href="#三公共模块dubbo-ano-common">三、公共模块（dubbo-ano-common）</a><br/>
@@ -22,9 +23,9 @@
 2. dubbo-ano-provider 是服务的提供者，提供商品的查询服务；
 3. dubbo-ano-provider 是服务的消费者，调用provider提供的查询服务。
 
-1.2  本项目dubbo的搭建采用zookeeper作为注册中心， 关于zookeeper的安装和基本操作可以参见我的手记[Zookeeper 基础命令与Java客户端](https://github.com/heibaiying/LearningNotes/blob/master/notes/%E4%B8%AD%E9%97%B4%E4%BB%B6/ZooKeeper/ZooKeeper%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8EJava%E5%AE%A2%E6%88%B7%E7%AB%AF.md)
+1.2  本项目dubbo的搭建采用zookeeper作为注册中心， 关于zookeeper的安装和基本操作可以参见我的手记[Zookeeper 基础命令与Java客户端](https://github.com/qshomewy/LearningNotes/blob/master/notes/%E4%B8%AD%E9%97%B4%E4%BB%B6/ZooKeeper/ZooKeeper%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8EJava%E5%AE%A2%E6%88%B7%E7%AB%AF.md)
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-dubbo.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/spring-dubbo.png"/> </div>
 
 
 
@@ -65,11 +66,11 @@
 - api 下为公共的调用接口；
 - bean 下为公共的实体类。
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/dubbo-ano-common.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/dubbo-ano-common.png"/> </div>
 
 ## 四、 服务提供者（dubbo-ano-provider）
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/dubbo-ano-provider.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/dubbo-ano-provider.png"/> </div>
 
 #### 4.1 提供方配置
 
@@ -116,11 +117,11 @@ public class DubboConfiguration {
 需要注意的是这里的@Service注解不是spring的注解，而是dubbo的注解 com.alibaba.dubbo.config.annotation.Service
 
 ```java
-package com.heibaiying.service;
+package com.qs.service;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.heibaiying.api.IProductService;
-import com.heibaiying.bean.Product;
+import com.qs.api.IProductService;
+import com.qs.bean.Product;
 
 
 import java.util.ArrayList;
@@ -128,7 +129,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : 产品提供接口实现类
  */
 @Service(timeout = 5000)
@@ -161,7 +162,7 @@ public class ProductService implements IProductService {
 
 ## 五、服务消费者（dubbo-ano-consumer）
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/dubbo-ano-consumer.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/dubbo-ano-consumer.png"/> </div>
 
 #### 1.消费方的配置
 
@@ -208,11 +209,11 @@ public class DubboConfiguration {
 #### 2.使用注解@Reference引用远程服务
 
 ```java
-package com.heibaiying.controller;
+package com.qs.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.heibaiying.api.IProductService;
-import com.heibaiying.bean.Product;
+import com.qs.api.IProductService;
+import com.qs.bean.Product;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -262,7 +263,7 @@ consumer中 pom.xml如下
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>spring-dubbo-annotation</artifactId>
-        <groupId>com.heibaiying</groupId>
+        <groupId>com.qs</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -271,7 +272,7 @@ consumer中 pom.xml如下
 
     <dependencies>
         <dependency>
-            <groupId>com.heibaiying</groupId>
+            <groupId>com.qs</groupId>
             <artifactId>dubbo-ano-common</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
@@ -290,7 +291,7 @@ provider中 pom.xml如下
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>spring-dubbo-annotation</artifactId>
-        <groupId>com.heibaiying</groupId>
+        <groupId>com.qs</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -299,7 +300,7 @@ provider中 pom.xml如下
 
     <dependencies>
         <dependency>
-            <groupId>com.heibaiying</groupId>
+            <groupId>com.qs</groupId>
             <artifactId>dubbo-ano-common</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>

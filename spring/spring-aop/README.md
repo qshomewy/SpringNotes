@@ -1,5 +1,6 @@
 # spring AOP（xml配置方式）
-## 目录<br/>
+
+## 目录<br/>
 <a href="#一说明">一、说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#11-项目结构说明">1.1 项目结构说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#12-依赖说明">1.2 依赖说明</a><br/>
@@ -18,7 +19,7 @@
 
 切面配置位于resources下的aop.xml文件，其中CustomAdvice是自定义切面类，OrderService是待切入的方法。
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-aop.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/spring-aop.png"/> </div>
 
 
 
@@ -44,73 +45,60 @@
 ```java
 public interface OrderService {
 
-    Order queryOrder(Long id);
-
-    Order createOrder(Long id, String productName);
+	Order queryOrder(Long id);
+	
+	Integer createOrder(Order order);
 }
 ```
 
 ```java
 public class OrderServiceImpl implements OrderService {
 
-    public Order queryOrder(Long id) {
-        return new Order(id, "product", new Date());
-    }
+	public Order queryOrder(Long id) {
+		return new Order(1001L, "苹果", new Date());
+	}
 
-    public Order createOrder(Long id, String productName) {
-        // 模拟抛出异常
-        // int j = 1 / 0;
-        return new Order(id, "new Product", new Date());
-    }
+	public Integer createOrder(Order order) {
+		// 模拟异常
+		int i = 1 / 0;
+		return i;
+	}
 }
-
 ```
 
 #### 2.2 创建自定义切面类
 
 ```java
-/**
- * @author : heibaiying
- * @description : 自定义切面
- */
 public class CustomAdvice {
 
-
-    //前置通知
-    public void before(JoinPoint joinPoint) {
-        //获取节点名称
-        String name = joinPoint.getSignature().getName();
-        Object[] args = joinPoint.getArgs();
-        System.out.println(name + "方法调用前：获取调用参数" + Arrays.toString(args));
-    }
-
-    //后置通知(抛出异常后不会被执行)
-    public void afterReturning(JoinPoint joinPoint, Object result) {
-        System.out.println("后置返回通知结果" + result);
-    }
-
-    //环绕通知
-    public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
-        System.out.println("环绕通知-前");
-        //调用目标方法
-        Object proceed = joinPoint.proceed();
-        System.out.println("环绕通知-后");
+	public void before(JoinPoint joinPoint) {
+		String name = joinPoint.getSignature().getName();
+		Object[] args = joinPoint.getArgs();
+		System.out.println("before前置通知, 方法" + name + ", 参数"+Arrays.toString(args));
+	}
+	
+	// 可以访问返回值, 抛出异常后不会被执行
+	public void afterReturning(JoinPoint joinPoint, Object result) {
+		System.out.println("afterReturning后置通知, 返回" + result);
+	}
+	
+	public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
+		System.out.println("around环绕通知, 前");
+        // 调用目标方法
+		Object proceed = joinPoint.proceed();
+        System.out.println("around环绕通知, 后");
         return proceed;
-    }
-
-    //异常通知
-    public void afterException(JoinPoint joinPoint, Exception exception) {
-        System.err.println("后置异常通知:" + exception);
-    }
-
-    ;
-
-    // 后置通知 总会执行 但是不能访问到返回值
-    public void after(JoinPoint joinPoint) {
-        System.out.println("后置通知");
-    }
+	}
+	
+	public void afterException(JoinPoint joinPoint, Exception exception) {
+		System.out.println("afterException异常通知, " + exception);
+	}
+	
+	// 总会执行，但是不能访问到返回值
+	public void after(JoinPoint joinPoint) {
+		System.out.println("after后置通知");
+	}
 }
-
 ```
 
 #### 2.3 配置切面
@@ -129,13 +117,13 @@ public class CustomAdvice {
     <aop:aspectj-autoproxy/>
 
     <!-- 1.配置目标对象 -->
-    <bean name="orderService" class="com.heibaiying.service.OrderServiceImpl"/>
+    <bean name="orderService" class="com.qs.service.OrderServiceImpl"/>
     <!-- 2.声明切面 -->
-    <bean name="myAdvice" class="com.heibaiying.advice.CustomAdvice"/>
+    <bean name="myAdvice" class="com.qs.advice.CustomAdvice"/>
     <!-- 3.配置将通知织入目标对象 -->
     <aop:config>
         <!--命名切入点 关于切入点更多表达式写法可以参见README.md-->
-        <aop:pointcut expression="execution(* com.heibaiying.service.OrderService.*(..))" id="cutPoint"/>
+        <aop:pointcut expression="execution(* com.qs.service.OrderService.*(..))" id="cutPoint"/>
         <aop:aspect ref="myAdvice">
             <!-- 前置通知 -->
             <aop:before method="before" pointcut-ref="cutPoint"/>
@@ -160,18 +148,36 @@ public class CustomAdvice {
 @ContextConfiguration("classpath:aop.xml")
 public class AopTest {
 
-    @Autowired
+	@Autowired
     private OrderService orderService;
 
     @Test
-    public void save() {
-        orderService.createOrder(1283929319L, "手机");
-        orderService.queryOrder(4891894129L);
+    public void queryOrder() {
+ 		orderService.queryOrder(1001L);
+    }
+  
+    @Test
+    public void createOrder() {
+    	orderService.createOrder(new Order(1001L, "苹果", new Date()));
     }
 }
 ```
 
+#### 2.5 执行结果
 
+```
+before前置通知, 方法queryOrder, 参数[1001]
+around环绕通知, 前
+after后置通知
+around环绕通知, 后
+afterReturning后置通知, 返回Order(id=1001, productName=苹果, orderTime=Fri May 03 12:53:50 CST 2019)
+```
+```
+before前置通知, 方法createOrder, 参数[Order(id=1001, productName=苹果, orderTime=Fri May 03 12:54:19 CST 2019)]
+around环绕通知, 前
+after后置通知
+afterException异常通知, java.lang.ArithmeticException: / by zero
+```
 
 ## 附： 关于切面表达式的说明
 

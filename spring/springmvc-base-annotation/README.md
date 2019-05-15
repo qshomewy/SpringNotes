@@ -67,12 +67,12 @@
    新建DispatcherServletInitializer.java文件,这个类的作用相当于我们在xml方式下web.xml中配置的DispatcherServlet
 
 ```java
-package com.heibaiying.config;
+package com.qs.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
- * @author : heibaiying
+ * @author : qshomewy
  */
 
 public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -95,11 +95,11 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
 3.新建ServletConfig.java，文件内容如下(这个类相当于我们在xml配置方式中的springApplication.xml)
 
 ```java
-package com.heibaiying.config;
+package com.qs.config;
 
-import com.heibaiying.exception.NoAuthExceptionResolver;
-import com.heibaiying.interceptors.MyFirstInterceptor;
-import com.heibaiying.interceptors.MySecondInterceptor;
+import com.qs.exception.NoAuthExceptionResolver;
+import com.qs.interceptors.MyFirstInterceptor;
+import com.qs.interceptors.MySecondInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -114,11 +114,11 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import java.util.List;
 
 /**
- * @author : heibaiying
+ * @author : qshomewy
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.heibaiying.controller"})
+@ComponentScan(basePackages = {"com.qs.controller"})
 public class ServletConfig implements WebMvcConfigurer {
 
     /**
@@ -147,14 +147,14 @@ public class ServletConfig implements WebMvcConfigurer {
 4.在src 下新建controller用于测试
 
 ```java
-package com.heibaiying.controller;
+package com.qs.controller;
 
-import com.heibaiying.exception.NoAuthException;
+import com.qs.exception.NoAuthException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : hello spring
  */
 
@@ -204,7 +204,7 @@ public class HelloController {
 1.创建自定义拦截器，实现接口HandlerInterceptor（这里我们创建两个拦截器，用于测试拦截器方法的执行顺序）
 
 ```java
-package com.heibaiying.interceptors;
+package com.qs.interceptors;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -213,7 +213,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : spring5 中 preHandle，postHandle，afterCompletion 在接口中被声明为默认方法
  */
 public class MyFirstInterceptor implements HandlerInterceptor {
@@ -235,7 +235,7 @@ public class MyFirstInterceptor implements HandlerInterceptor {
 ```
 
 ```java
-package com.heibaiying.interceptors;
+package com.qs.interceptors;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -244,7 +244,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : spring5 中 preHandle，postHandle，afterCompletion 在接口中被声明为默认方法
  */
 public class MySecondInterceptor implements HandlerInterceptor {
@@ -288,10 +288,10 @@ public class MySecondInterceptor implements HandlerInterceptor {
 1.定义自定义异常
 
 ```java
-package com.heibaiying.exception;
+package com.qs.exception;
 
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : 自定义无权限异常
  */
 public class NoAuthException extends RuntimeException {
@@ -319,7 +319,7 @@ public class NoAuthException extends RuntimeException {
 2.实现自定义异常处理器
 
 ```java
-package com.heibaiying.exception;
+package com.qs.exception;
 
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -328,7 +328,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : 无权限异常处理机制
  */
 public class NoAuthExceptionResolver implements HandlerExceptionResolver {
@@ -390,12 +390,12 @@ public class HelloController {
 1.新建Programmer.java
 
 ```java
-package com.heibaiying.bean;
+package com.qs.bean;
 
 import lombok.Data;
 
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description :
  */
 @Data
@@ -417,9 +417,9 @@ public class Programmer {
 2.新建ParamBindController.java 文件
 
 ```java
-package com.heibaiying.controller;
+package com.qs.controller;
 
-import com.heibaiying.bean.Programmer;
+import com.qs.bean.Programmer;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Controller;
@@ -432,7 +432,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Date;
 
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description :参数绑定
  */
 @Controller
@@ -517,7 +517,7 @@ public String param(@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date birthd
 3.使用全局的日期格式绑定，新建自定义日期格式转化类，之后在ServletConfig.java中进行注册
 
 ```java
-package com.heibaiying.convert;
+package com.qs.convert;
 
 import org.springframework.core.convert.converter.Converter;
 
@@ -525,7 +525,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description :
  */
 public class CustomDateConverter implements Converter<String, Date> {
@@ -577,9 +577,9 @@ public void addFormatters(FormatterRegistry registry) {
 2.新建测试ParamValidController.java，主要是在需要校验的参数前加上@Validated，声明参数需要被校验，同时加上bindingResult参数，这个参数中包含了校验的结果
 
 ```java
-package com.heibaiying.controller;
+package com.qs.controller;
 
-import com.heibaiying.bean.Programmer;
+import com.qs.bean.Programmer;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.datetime.DateFormatter;
@@ -600,7 +600,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description :数据校验
  */
 @RestController
@@ -623,7 +623,7 @@ public class ParamValidController {
 3.在Programmer.java的对应属性上加上注解约束(支持的注解可以在javax.validation.constraints包中查看)
 
 ```java
-package com.heibaiying.bean;
+package com.qs.bean;
 
 import lombok.Data;
 
@@ -631,7 +631,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description :
  */
 @Data
@@ -674,9 +674,9 @@ public CommonsMultipartResolver multipartResolver(){
 2.新建测试上传的FileController.java
 
 ```java
-package com.heibaiying.controller;
+package com.qs.controller;
 
-import com.heibaiying.utils.FileUtil;
+import com.qs.utils.FileUtil;
 import org.apache.commons.io.FileUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -696,7 +696,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : 文件上传
  */
 
@@ -751,13 +751,13 @@ public class FileController {
 3.其中工具类FileUtil.java代码如下
 
 ```java
-package com.heibaiying.utils;
+package com.qs.utils;
 
 import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : 文件上传工具类
  */
 
@@ -890,12 +890,12 @@ public class FileUtil {
 1.新建Pet.java实体类
 
 ```java
-package com.heibaiying.bean;
+package com.qs.bean;
 
 import lombok.Data;
 
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description :测试restful风格的实体类
  */
 
@@ -919,14 +919,14 @@ public class Pet {
 - 删除资源时：DELETE（DeleteMapping）
 
 ```java
-package com.heibaiying.controller;
+package com.qs.controller;
 
-import com.heibaiying.bean.Pet;
+import com.qs.bean.Pet;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : Restful 风格的请求
  */
 

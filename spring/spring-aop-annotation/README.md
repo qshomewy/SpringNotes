@@ -1,5 +1,6 @@
 # spring AOP（注解方式）
-## 目录<br/>
+
+## 目录<br/>
 <a href="#一说明">一、说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#11-项目结构说明">1.1 项目结构说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#12-依赖说明">1.2 依赖说明</a><br/>
@@ -17,11 +18,11 @@
 
 ### 1.1 项目结构说明
 
-1. 切面配置位于com.heibaiying.config下AopConfig.java文件；
+1. 切面配置位于com.qs.config下AopConfig.java文件；
 2. 自定义切面位于advice下，其中CustomAdvice是标准的自定义切面，FirstAdvice和SecondAdvice用于测试多切面共同作用于同一个被切入点时的执行顺序；
 3. OrderService是待切入方法。
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-aop-annotation.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/spring-aop-annotation.png"/> </div>
 
 
 
@@ -46,27 +47,33 @@
 
 ```java
 public interface OrderService {
-
-    Order queryOrder(Long id);
-
-    Order createOrder(Long id, String productName);
+	
+	Order queryOrder(Long id);
+	
+	Integer createOrder(Order order);
+	
+	Integer deleteOrder(Long id);
 }
 ```
 
 ```java
+@Service
 public class OrderServiceImpl implements OrderService {
 
-    public Order queryOrder(Long id) {
-        return new Order(id, "product", new Date());
-    }
+	public Order queryOrder(Long id) {
+		return new Order(id, "苹果", new Date());
+	}
 
-    public Order createOrder(Long id, String productName) {
-        // 模拟抛出异常
-        // int j = 1 / 0;
-        return new Order(id, "new Product", new Date());
-    }
+	public Integer createOrder(Order order) {
+	    // 模拟异常
+		int i = 1 / 0;
+		return i;
+	}
+
+	public Integer deleteOrder(Long id) {
+		return 1;
+	}
 }
-
 ```
 
 #### 2.2 创建自定义切面类
@@ -74,73 +81,62 @@ public class OrderServiceImpl implements OrderService {
 注：@Pointcut的值可以是多个切面表达式的组合。
 
 ```java
-/**
- * @author : heibaiying
- * @description : 自定义切面
- */
 @Aspect
-@Component //除了加上@Aspect外 还需要声明为spring的组件 @Aspect只是一个切面声明
+@Component// 除了加上@Aspect外，还需要声明为spring的组件 @Aspect只是一个切面声明
 public class CustomAdvice {
-
-
-    /**
+	
+	/**
      * 使用 || , or  表示或
      * 使用 && , and 表示与
      * ! 表示非
      */
-    @Pointcut("execution(* com.heibaiying.service.OrderService.*(..)) && !execution(* com.heibaiying.service.OrderService.deleteOrder(..))")
-    private void pointCut() {
+	@Pointcut("execution(* com.qs.service.OrderService.*(..)) && !execution(* com.qs.service.OrderService.deleteOrder(..))")
+	private void pointCut() {
+		
+	}
 
-    }
-
-    @Before("pointCut()")
-    public void before(JoinPoint joinPoint) {
-        //获取节点名称
-        String name = joinPoint.getSignature().getName();
-        Object[] args = joinPoint.getArgs();
-        System.out.println(name + "方法调用前：获取调用参数" + Arrays.toString(args));
-    }
-
-    // returning 参数用于指定返回结果与哪一个参数绑定
-    @AfterReturning(pointcut = "pointCut()", returning = "result")
-    public void afterReturning(JoinPoint joinPoint, Object result) {
-        System.out.println("后置返回通知结果" + result);
-    }
-
-    @Around("pointCut()")
-    public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
-        System.out.println("环绕通知-前");
-        //调用目标方法
-        Object proceed = joinPoint.proceed();
-        System.out.println("环绕通知-后");
+	@Before("pointCut()")
+	public void before(JoinPoint joinPoint) {
+		String name = joinPoint.getSignature().getName();
+		Object[] args = joinPoint.getArgs();
+		System.out.println("before前置通知, 方法" + name + ", 传参" + Arrays.toString(args));
+	}
+	
+	// 抛出异常后不会被执行
+	@AfterReturning(pointcut = "pointCut()", returning = "result")
+	// returning 参数用于指定返回结果与哪一个参数绑定
+	public void afterReturning(JoinPoint joinPoint, Object result) {
+		System.out.println("afterReturning后置结果通知, 返回" + result);
+	}
+	
+	@Around("pointCut()")
+	public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
+		System.out.println("around环绕通知, 前");
+        // 调用目标方法
+		Object proceed = joinPoint.proceed();
+        System.out.println("around环绕通知, 后");
         return proceed;
-    }
-
-    // throwing 参数用于指定抛出的异常与哪一个参数绑定
-    @AfterThrowing(pointcut = "pointCut()", throwing = "exception")
-    public void afterThrowing(JoinPoint joinPoint, Exception exception) {
-        System.err.println("后置异常通知:" + exception);
-    }
-
-
-    @After("pointCut()")
-    public void after(JoinPoint joinPoint) {
-        System.out.println("后置通知");
-    }
+	}
+	
+	@AfterThrowing(pointcut = "pointCut()", throwing = "exception")
+	public void afterException(JoinPoint joinPoint, Exception exception) {
+		System.out.println("afterException异常通知, " + exception);
+	}
+	
+	//  总会执行 但是不能访问到返回值
+	@After("pointCut()")
+	public void after(JoinPoint joinPoint) {
+		System.out.println("after后置通知");
+	}
 }
-
 ```
 
 #### 2.3 配置切面
 
 ```java
-/**
- * @author : heibaiying
- * @description : 开启切面配置
- */
 @Configuration
-@ComponentScan("com.heibaiying.*")
-@EnableAspectJAutoProxy // 开启@Aspect注解支持 等价于<aop:aspectj-autoproxy>
+@ComponentScan("com.qs.*")
+@EnableAspectJAutoProxy// 开启@Aspect注解支持, 等价于<aop:aspectj-autoproxy>
 public class AopConfig {
 }
 ```
@@ -152,23 +148,27 @@ public class AopConfig {
 @ContextConfiguration(classes = AopConfig.class)
 public class AopTest {
 
-
-    @Autowired
-    private OrderService orderService;
-
-    @Test
-    public void saveAndQuery() {
-        orderService.createOrder(1283929319L, "手机");
-        orderService.queryOrder(4891894129L);
-    }
-
-    /**
-     * 多个切面作用于同一个切入点时，可以用@Order指定切面的执行顺序
-     * 优先级高的切面在切入方法前执行的通知(before)会优先执行，但是位于方法后执行的通知(after,afterReturning)反而会延后执行
+	@Autowired
+	private OrderService orderService;
+	
+	@Test
+	public void queryOrder() {
+		orderService.queryOrder(1001L);
+	}
+	
+	@Test
+	public void createOrder() {
+		orderService.createOrder(new Order(1001L, "苹果", new Date()));
+	}
+	
+	/**
+     * 多个切面作用于同一个切入点时, 可以用@Order指定切面的执行顺序
+     * 优先级高的切面在切入方法前执行的通知(before)会优先执行,
+     * 但是位于方法后执行的通知(after,afterReturning)反而会延后执行
      */
     @Test
-    public void delete() {
-        orderService.deleteOrder(12793179L);
+    public void deleteOrder() {
+        orderService.deleteOrder(1001L);
     }
 }
 ```
@@ -179,7 +179,7 @@ public class AopTest {
 
 - 优先级高的切面在切入方法前执行的通知(before)会优先执行，但是位于方法后执行的通知(after,afterReturning)反而会延后执行，类似于同心圆原理。
 
-  <div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/aop执行顺序.png"/> </div>
+  <div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/aop执行顺序.png"/> </div>
 
 
 

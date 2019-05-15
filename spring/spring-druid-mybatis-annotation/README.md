@@ -15,7 +15,7 @@
 
 ### 项目目录结构
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-druid-mybatis-annotation.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/spring-druid-mybatis-annotation.png"/> </div>
 
 #### 1、创建maven工程，除了Spring基本依赖外，还需要导入mybatis和druid的相关依赖
 
@@ -76,11 +76,11 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
 
 #### 3、基于servlet 3.0的支持，可以采用注解的方式注册druid的servlet和filter 
 
-​     注：关于servlet 更多注解支持可以查看[Servlet 规范文档](https://github.com/heibaiying/spring-samples-for-all/blob/master/referenced%20documents/Servlet3.1%E8%A7%84%E8%8C%83%EF%BC%88%E6%9C%80%E7%BB%88%E7%89%88%EF%BC%89.pdf)中**8.1小节 注解和可插拔性** 
+​     注：关于servlet 更多注解支持可以查看[Servlet 规范文档](https://github.com/qshomewy/SpringNotes/blob/master/referenced%20documents/Servlet3.1%E8%A7%84%E8%8C%83%EF%BC%88%E6%9C%80%E7%BB%88%E7%89%88%EF%BC%89.pdf)中**8.1小节 注解和可插拔性** 
 
 ```java
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : 配置监控页面用户名密码
  */
 @WebServlet(urlPatterns = "/druid/*",
@@ -97,7 +97,7 @@ public class DruidStatViewServlet extends StatViewServlet {
 ```java
 
 /**
- * @author : heibaiying
+ * @author : qshomewy
  * @description : WebStatFilter用于采集web-jdbc关联监控的数据
  */
 @WebFilter(filterName="druidWebStatFilter",urlPatterns="/*",
@@ -154,12 +154,12 @@ public class DataSourceConfig {
 
 ```java
 /**
- * @author : heibaiying
+ * @author : qshomewy
  */
 @Configuration
 @EnableTransactionManagement // 开启声明式事务处理 等价于xml中<tx:annotation-driven/>
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.heibaiying.*"})
+@ComponentScan(basePackages = {"com.qs.*"})
 public class ServletConfig implements WebMvcConfigurer {
 
     /**
@@ -236,7 +236,7 @@ public class ServletConfig implements WebMvcConfigurer {
     public MapperScannerConfigurer MapperScannerConfigurer() {
         MapperScannerConfigurer configurer = new MapperScannerConfigurer();
         configurer.setSqlSessionFactoryBeanName("sessionFactoryBean");
-        configurer.setBasePackage("com.heibaiying.dao");
+        configurer.setBasePackage("com.qs.dao");
         return configurer;
     }
 
@@ -291,9 +291,9 @@ public interface MysqlDao {
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.heibaiying.dao.MysqlDao">
+<mapper namespace="com.qs.dao.MysqlDao">
 
-    <select id="queryById" resultType="com.heibaiying.bean.Relation">
+    <select id="queryById" resultType="com.qs.bean.Relation">
         SELECT help_keyword_id AS id,name
         FROM HELP_KEYWORD
         WHERE HELP_KEYWORD_ID = #{id}
@@ -315,9 +315,9 @@ public interface OracleDao {
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.heibaiying.dao.OracleDao">
+<mapper namespace="com.qs.dao.OracleDao">
 
-    <select id="queryById" resultType="com.heibaiying.bean.Flow">
+    <select id="queryById" resultType="com.qs.bean.Flow">
         select * from APEX_030200.WWV_FLOW_CALS where ID = #{id}
     </select>
 
@@ -358,6 +358,6 @@ public class OracleController {
 
 #### 10、druid 监控页面访问地址http://localhost:8080/druid/index.html
 
-![druid控制台](https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/druid%E6%8E%A7%E5%88%B6%E5%8F%B0.png)
+![druid控制台](https://github.com/qshomewy/SpringNotes/blob/master/pictures/druid%E6%8E%A7%E5%88%B6%E5%8F%B0.png)
 
 

@@ -17,8 +17,8 @@
     <dubbo:protocol name="dubbo" port="20880"/>
 
     <!-- 声明需要暴露的服务接口 -->
-    <dubbo:service interface="com.heibaiying.api.IProductService" ref="productService"/>
+    <dubbo:service interface="com.qs.api.IProductService" ref="productService"/>
 
     <!-- 和本地bean一样实现服务 -->
-    <bean id="productService" class="com.heibaiying.service.ProductService"/>
+    <bean id="productService" class="com.qs.service.ProductService"/>
 </beans>

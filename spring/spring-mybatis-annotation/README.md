@@ -1,5 +1,6 @@
 # spring 整合 mybatis（注解方式）
-## 目录<br/>
+
+## 目录<br/>
 <a href="#一说明">一、说明</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#11-项目结构">1.1 项目结构</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#12-项目依赖">1.2 项目依赖</a><br/>
@@ -16,7 +17,7 @@
 
 #### 1.1 项目结构
 
-<div align="center"> <img src="https://github.com/heibaiying/spring-samples-for-all/blob/master/pictures/spring-mybatis-annotation.png"/> </div>
+<div align="center"> <img src="https://github.com/qshomewy/SpringNotes/blob/master/pictures/spring-mybatis-annotation.png"/> </div>
 
 #### 1.2 项目依赖
 
@@ -92,11 +93,11 @@ public class DataSourceConfig {
 
 ```java
 /**
- * @author : heibaiying
+ * @author : qshomewy
  */
 @Configuration
 @EnableTransactionManagement // 开启声明式事务处理 等价于xml中<tx:annotation-driven/>
-@ComponentScan(basePackages = {"com.heibaiying.*"})
+@ComponentScan(basePackages = {"com.qs.*"})
 public class DatabaseConfig {
 
     /* @Autowired
@@ -141,7 +142,7 @@ public class DatabaseConfig {
     public MapperScannerConfigurer MapperScannerConfigurer() {
         MapperScannerConfigurer configurer = new MapperScannerConfigurer();
         configurer.setSqlSessionFactoryBeanName("sessionFactoryBean");
-        configurer.setBasePackage("com.heibaiying.dao");
+        configurer.setBasePackage("com.qs.dao");
         return configurer;
     }
 
@@ -196,9 +197,9 @@ public interface MysqlDao {
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.heibaiying.dao.MysqlDao">
+<mapper namespace="com.qs.dao.MysqlDao">
 
-    <select id="queryById" resultType="com.heibaiying.bean.Relation">
+    <select id="queryById" resultType="com.qs.bean.Relation">
         SELECT help_keyword_id AS id,name
         FROM HELP_KEYWORD
         WHERE HELP_KEYWORD_ID = #{id}
@@ -220,9 +221,9 @@ public interface OracleDao {
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.heibaiying.dao.OracleDao">
+<mapper namespace="com.qs.dao.OracleDao">
 
-    <select id="queryById" resultType="com.heibaiying.bean.Flow">
+    <select id="queryById" resultType="com.qs.bean.Flow">
         select * from APEX_030200.WWV_FLOW_CALS where ID = #{id}
     </select>
 
@@ -269,6 +270,5 @@ public class OracleDaoTest {
         }
     }
 }
-
 ```
 
